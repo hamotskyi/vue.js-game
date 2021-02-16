@@ -9,25 +9,25 @@
 
     <div id="wrapper">
 
-      <div id="el1-1" style="left:20px;" :style="`top:${bottom}px; transition: top ease ${trans1}s, background-image 0s; background-image: url(/img/${number1}.${arr[number1]}.png)`"> </div>
+      <div id="el1-1" style="left:20px;" :style="`top:${bottom}px; transition: top ease ${trans1}s, background-image 0s; background-image: url(./img/${number1}.${arr[number1]}.png)`"> </div>
       
-      <div id="el1-2" style="left:20px" :style="`top:${bottom2}px; opacity: ${opacity}; background-image: url(/img/${number1}.${arr[number1]}.png)`"> </div>
+      <div id="el1-2" style="left:20px" :style="`top:${bottom2}px; opacity: ${opacity}; background-image: url(./img/${number1}.${arr[number1]}.png)`"> </div>
       
-      <div id="el1-3" style="left:20px" :style="`top:${bottom3}px; opacity: ${opacity}; background-image: url(/img/${number1}.${arr[number1]}.png)`"> </div>
+      <div id="el1-3" style="left:20px" :style="`top:${bottom3}px; opacity: ${opacity}; background-image: url(./img/${number1}.${arr[number1]}.png)`"> </div>
       
       
-      <div id="el2-1" style="left:240px" :style="`top:${bottom}px; transition: top ease ${trans2}s, background-image 0s; background-image: url(/img/${number2}.${arr[number2]}.png)`"> </div>
+      <div id="el2-1" style="left:240px" :style="`top:${bottom}px; transition: top ease ${trans2}s, background-image 0s; background-image: url(./img/${number2}.${arr[number2]}.png)`"> </div>
       
-      <div id="el2-2" style="left:240px" :style="`top:${bottom2}px; opacity: ${opacity}; background-image: url(/img/${number2}.${arr[number2]}.png)`"> </div>
+      <div id="el2-2" style="left:240px" :style="`top:${bottom2}px; opacity: ${opacity}; background-image: url(./img/${number2}.${arr[number2]}.png)`"> </div>
       
-      <div id="el2-3" style="left:240px" :style="`top:${bottom3}px; opacity: ${opacity}; background-image: url(/img/${number2}.${arr[number2]}.png)`"> </div>
+      <div id="el2-3" style="left:240px" :style="`top:${bottom3}px; opacity: ${opacity}; background-image: url(./img/${number2}.${arr[number2]}.png)`"> </div>
 
 
-      <div id="el3-1" style="left:460px" :style="`top:${bottom}px; transition: top ease ${trans3}s, background-image 0s; background-image: url(/img/${number3}.${arr[number3]}.png)`"> </div>
+      <div id="el3-1" style="left:460px" :style="`top:${bottom}px; transition: top ease ${trans3}s, background-image 0s; background-image: url(./img/${number3}.${arr[number3]}.png)`"> </div>
 
-      <div id="el3-2" style="left:460px" :style="`top:${bottom2}px; opacity: ${opacity}; background-image: url(/img/${number3}.${arr[number3]}.png)`"> </div>
+      <div id="el3-2" style="left:460px" :style="`top:${bottom2}px; opacity: ${opacity}; background-image: url(./img/${number3}.${arr[number3]}.png)`"> </div>
 
-      <div id="el3-3" style="left:460px" :style="`top:${bottom3}px; opacity: ${opacity}; background-image: url(/img/${number3}.${arr[number3]}.png)`"> </div>
+      <div id="el3-3" style="left:460px" :style="`top:${bottom3}px; opacity: ${opacity}; background-image: url(./img/${number3}.${arr[number3]}.png)`"> </div>
 
       <div id="upWrapper">
 
@@ -41,7 +41,7 @@
 
 <script>
 import {useSound} from '@vueuse/sound'
-import soundSprite from './assets/audio/sound-sprite1.mp3'
+import soundSprite from './assets/audio/sound-sprite.mp3'
 
 export default {
     setup() {
@@ -80,15 +80,9 @@ export default {
   mounted() {
     document.addEventListener('keydown', this.startSpin);
     document.addEventListener('keyup', this.stopSpin);
-    this.musicOn();
   },
-  methods: {
 
-    musicOn() {
-      setInterval (()=>{
-        this.play({id:'guitar'});
-      },10010)
-    },
+  methods: {
 
     startSpin(event) {
 
