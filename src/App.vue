@@ -1,11 +1,23 @@
 <template>
   <div id="app">
 
+    <!-- <button @click="musicOn()">sound</button> -->
+
     <img src="./assets/img/1.png">
     <img src="./assets/img/2.png">
     <img src="./assets/img/3.png">
     <img src="./assets/img/4.png">
     <img src="./assets/img/5.png">
+
+    <div id="gop-wrapper">
+        <div id="gop">
+
+        </div>
+        <div id="gop-speech">
+
+        </div>
+
+    </div>
 
     <div id="wrapper">
 
@@ -40,25 +52,25 @@
 </template>
 
 <script>
-import {useSound} from '@vueuse/sound'
-import soundSprite from './assets/audio/sound-sprite.mp3'
+// import {useSound} from '@vueuse/sound'
+// import soundSprite from './assets/audio/sound-sprite.mp3'
 
 export default {
-    setup() {
-    const {play, stop} = useSound(soundSprite, {
-      sprite: {
-        start: [2750, 1250],
-        spin: [5050, 1150],
-        end: [6300, 400],
-        guitar: [7500, 10000],
-      },
-    })
+  //   setup() {
+  //   const {play, stop} = useSound(soundSprite, {
+  //     sprite: {
+  //       start: [2750, 1250],
+  //       spin: [5050, 1150],
+  //       end: [6300, 400],
+  //       guitar: [7300, 131900],
+  //     },
+  //   })
 
-    return {
-      play,
-      stop,
-    }
-  },
+  //   return {
+  //     play,
+  //     stop,
+  //   }
+  // },
   data() {
     return {
       bottom: 20,
@@ -74,6 +86,7 @@ export default {
       trans2:0,
       trans3:0,
       spin: false,
+      // music: false,
       arr: ['zero', 'adcb3c81', 'c8ccef56', '1c9b6cf1', '9b45790e', '03cd1c9c']
     }
   },
@@ -84,6 +97,20 @@ export default {
 
   methods: {
 
+    // musicOn() {
+
+    //   if (!this.music) {
+    //     this.music = true;
+    //     this.play({id:'guitar'});
+    //     setInterval(()=>{
+    //       this.play({id:'guitar'});
+    //     }, 131900)
+    //   } else {
+    //     this.stop();
+    //     this.music = false;
+    //   }
+    // },
+
     startSpin(event) {
 
       if (event.keyCode == 13 && !this.spin) {
@@ -92,7 +119,7 @@ export default {
         this.trans2 = 0;
         this.trans3 = 0;
         this.opacity = 1;
-        this.play({id:'start'});
+        // this.play({id:'start'});
         this.moveUp();
       }
 
@@ -100,7 +127,7 @@ export default {
 
     stopSpin(event) {
       if (event.keyCode == 13 && this.spin) {
-        this.play({id:'end'});
+        // this.play({id:'end'});
         this.spin = false;
         this.bottom = -400;
         this.trans1 = 0.5;
@@ -123,13 +150,13 @@ export default {
     moveUp() {
       let _this = this;
 
-      setInterval(()=>{
-        if (!_this.spin) {
-          _this.stop();
-        } else {
-          _this.play({id:'spin'});
-        }
-      },1150)
+      // setInterval(()=>{
+      //   if (!_this.spin) {
+      //     _this.stop();
+      //   } else {
+      //     _this.play({id:'spin'});
+      //   }
+      // },1150)
 
       setInterval(() => {
         if (!_this.spin) {
@@ -180,6 +207,9 @@ export default {
     margin: 0;
     padding: 0;
     background-color: rgb(97, 4, 4);
+    background-image: url(./assets/img/logo.png);
+    background-size: 10%;
+    background-repeat: space;
     overflow: hidden;
   }
   #app {
@@ -189,6 +219,32 @@ export default {
     background-image: url(./assets/img/main-bg.png);
     background-position: center;
     background-repeat: no-repeat;
+  }
+  #gop-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: aqua;
+    /* background-image: url(./assets/img/gop.png); */
+    /* background-position: center; */
+    /* background-repeat: no-repeat; */
+    /* background-size: 80%; */
+    z-index: 8768;
+  }
+  #gop {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-800px, 37px);
+    width: 500px;
+    height: 550px;
+    background-image: url(./assets/img/gop.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+
+
   }
   #wrapper {
     position: absolute;
