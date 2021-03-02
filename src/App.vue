@@ -10,11 +10,15 @@
     <img src="./assets/img/5.png">
 
     <div id="gop-wrapper">
+
         <div id="gop">
 
         </div>
-        <div id="gop-speech">
 
+        <div id="gop-speech">
+          <p id="gop-speech-text">
+            {{speech}}
+          </p>
         </div>
 
     </div>
@@ -79,15 +83,16 @@ export default {
       opacity: 0,
       inter1: 0,
       inter2: 0,
-      number1:2,
-      number2:3,
-      number3:4,
-      trans1:0,
-      trans2:0,
-      trans3:0,
+      number1: 2,
+      number2: 3,
+      number3: 4,
+      trans1: 0,
+      trans2: 0,
+      trans3: 0,
       spin: false,
       // music: false,
-      arr: ['zero', 'adcb3c81', 'c8ccef56', '1c9b6cf1', '9b45790e', '03cd1c9c']
+      arr: ['zero', 'adcb3c81', 'c8ccef56', '1c9b6cf1', '9b45790e', '03cd1c9c'],
+      speech: "Опа! Стопэ. Отэто встреча..."
     }
   },
   mounted() {
@@ -243,8 +248,24 @@ export default {
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
-
-
+  }
+  #gop-speech {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-510px, 135px);
+    width: 850px;
+    height: 240px;
+    background-image: url(./assets/img/cloud.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+  #gop-speech-text {
+    position: absolute;
+    top: 30px;
+    left: 245px;
+    width: 530px;
   }
   #wrapper {
     position: absolute;
