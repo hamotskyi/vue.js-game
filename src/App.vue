@@ -15,8 +15,8 @@
 
         </div>
 
-        <div id="gop-speech">
-          <p id="gop-speech-text">
+        <div id="gop-speech" :style="`opacity: ${speechOpacity};`">
+          <p id="gop-speech-text" >
             {{speech}}
           </p>
         </div>
@@ -46,8 +46,33 @@
       <div id="el3-3" style="left:460px" :style="`top:${bottom3}px; opacity: ${opacity}; background-image: url(./img/${number3}.${arr[number3]}.png)`"> </div>
 
       <div id="upWrapper">
-
+        
       </div>
+
+      <div id="help" @mouseenter="rulesAppear()" @mouseleave="rulesDisappear()" :style="`opacity: ${speechOpacity};`">
+        <p id="helpFirstP">
+          Шо i як
+        </p>
+        <p id="helpSecondP">
+          тут?
+        </p>
+      </div>
+
+      <div id="rules" :style="`transform: translate(${rulesTransform}px, -50%); opacity: ${speechOpacity};`">
+        <p class="rulesP" id="rulesFirstP">
+          Нажми i тримай <span class="rulesPSpan">ENTER</span> -<br>картiнки будуть крутиця.
+        </p>
+        <p class="rulesP" id="rulesSecondP">
+          Пускаеш <span class="rulesPSpan">ENTER</span> -<br>картiнки астанавлююця.
+        </p>
+        <p class="rulesP" id="rulesThirdP">
+          Йесi випадуть три пацика -<br>ти красава! 3 очка тобi.
+        </p>
+        <p class="rulesP" id="rulesFourthP">
+          Нада назбирать 21 очко i свободiн!
+        </p>
+      </div>
+
       <div id="downWrapper">
 
       </div>
@@ -92,7 +117,12 @@ export default {
       spin: false,
       // music: false,
       arr: ['zero', 'adcb3c81', 'c8ccef56', '1c9b6cf1', '9b45790e', '03cd1c9c'],
-      speech: "Опа! Стопэ. Отэто встреча..."
+      speech: `Опа! Добрий вечiр! Опять ти? Ну тада пагнали!`,
+      points: 0,
+      loseCounter: 0,
+      lose: ['Дядь, шо ти чудиш? Крути ше...', 'Ого, ти незграба! Крути дальше...', 'Задачка не iз льогких... для тебе...', 'Ахах, невдаха!', 'Ну може тобi хоть в любвi повезе...', 'Шо ждеш?! Пробуй дальше!', 'Шо ти тiшися - крути дальше!'],
+      speechOpacity: 1,
+      rulesTransform: 5500
     }
   },
   mounted() {
@@ -124,6 +154,7 @@ export default {
         this.trans2 = 0;
         this.trans3 = 0;
         this.opacity = 1;
+        this.speechOpacity = 0;
         // this.play({id:'start'});
         this.moveUp();
       }
@@ -138,9 +169,35 @@ export default {
         this.trans1 = 0.5;
         this.trans2 = 1;
         this.trans3 = 1.5;
+        this.speechOpacity = 1;
         this.stopMove();
         // setTimeout(()=>{this.stop},400)
-
+        if (this.number1 != this.number2 && this.number3 != this.number2) {
+          this.speech = this.lose[this.loseCounter]
+          if (this.loseCounter < 6) {
+          this.loseCounter++
+          } else if (this.loseCounter == 6) {
+            this.loseCounter = 0
+          }
+        } else if (this.number1 == this.number2 && this.number3 == this.number2) {
+          this.points += 3
+          if (this.points == 3) {
+            this.speech = 'Дядь красава! Начало положено. В тебе 3 очка!'
+          } else if (this.points == 6) {
+            this.speech = 'Красавчик! Поторохи, помалу i витянеш. Назбирав 6 очок!'
+          } else if (this.points == 9) {
+            this.speech = 'Молодчик! Вже 9 очок!'
+          } else if (this.points == 12) {
+            this.speech = 'Молодець, сiдай, 12!'
+          } else if (this.points == 15) {
+            this.speech = 'Пятнаха уже! Красава!'
+          } else if (this.points == 18) {
+            this.speech = 'Дядь, ше чуть! Вже 18!'
+          } else if (this.points == 21) {
+            this.speech = 'Вай-яаа! Красава! 21 ОЧКО! Жми ENTER i давай ше раз заново!'
+            this.points = 0
+          }
+        }
       }
     },
 
@@ -203,11 +260,24 @@ export default {
         }
       }, 10);
     },
+
+    rulesAppear() {
+      this.rulesTransform=398;
+    },
+
+    rulesDisappear() {
+      this.rulesTransform= -5500;
+    },
   },
 }
 </script>
 
 <style>
+@font-face {
+  font-family: "AnotherCastle3";
+  src: local("AnotherCastle3"),
+   url(./assets/fonts/AnotherCastle3.ttf) format("truetype");
+}
   body {
     margin: 0;
     padding: 0;
@@ -260,12 +330,15 @@ export default {
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
+    transition: ease-in-out .4s;
   }
   #gop-speech-text {
     position: absolute;
-    top: 30px;
+    top: 35px;
     left: 245px;
     width: 530px;
+    font-size: 35px;
+    font-family: "AnotherCastle3", monospace, sans-serif;
   }
   #wrapper {
     position: absolute;
@@ -279,18 +352,21 @@ export default {
   #upWrapper {
     position: absolute;
     top: -412px;
+    right: 1px;
     width: 680px;  
     height: 412px;
     z-index: 500;
     /* background-color: burlywood; */
     background-image: url(./assets/img/up-wrapper.png);
+    background-position: center;
+    background-repeat: no-repeat;
     /* border-bottom: 3px solid black; */
     /* display: none; */
 
   }
   #downWrapper{
     position: absolute;
-    bottom: -408px;
+    bottom: -409px;
     right: 1px;
     width: 680px;  
     height: 412px;
@@ -301,6 +377,83 @@ export default {
     background-size: cover;
     /* border-top: 3px solid black; */
     /* display: none; */
+
+  }
+  #help {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(495px, -350px);
+    width: 150px;
+    height: 150px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: 10px solid white;
+    background-color: #30363b;
+    /* opacity: .3; */
+    cursor: pointer;
+    transition: ease-in-out .4s;
+    z-index: 453;
+  }
+  /* #help:hover {
+    opacity: 1;
+  } */
+  #helpFirstP {
+    width: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30px);
+    line-height: 1;
+    margin: 0;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    font-family: "AnotherCastle3", monospace;
+  }
+  #helpSecondP {
+    width: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 5px);
+    line-height: 1;
+    margin: 0;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    font-family: "AnotherCastle3", monospace;
+  }
+  #rules {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #f1e7e0;
+    width: 300px;
+    height: 230px;
+    font-family: "AnotherCastle3";
+    font-size: 20px;
+    line-height: 1;
+    box-sizing: border-box;
+    border-radius: 5%;
+    border: 3px solid black;
+    transition: ease-in-out .4s;
+    z-index: 452;
+  }
+  .rulesP {
+    margin: 0;
+    margin-left: 15px;
+    margin-top: 14px;
+    margin-right: 15px;
+}
+  .rulesPSpan {
+    margin: 3px;
+    padding: 3px;
+    padding-top: 1px;
+    padding-left: 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 2px solid black;
 
   }
   #el1-1, #el1-2, #el1-3, #el2-1, #el2-2, #el2-3, #el3-1, #el3-2, #el3-3 {
